@@ -1,0 +1,36 @@
+services:
+  # Base de datos
+  db:
+    image: postgres:16
+    container_name: gimnasiofit-db
+    restart: always
+    environment:
+      POSTGRES_DB: GimnasioFitDb
+      POSTGRES_PASSWORD: TuPasswordSeguro123!
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d GimnasioFitDb"]
+      interval: 3s
+      timeout: 3s
+      retries: 5
+
+  # API
+  api:
+    build:
+      context: .
+      dockerfile: GimnasioFit.Api/Dockerfile
+    container_name: gimnasiofit-api
+    ports:
+      - "8080:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=db;Database=GimnasioFitDb;Username=postgres;Password=TuPasswordSeguro123!
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  postgres_data:

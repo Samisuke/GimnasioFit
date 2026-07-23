@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="GimnasioFit.Api/GimnasioFit.Api.csproj" />
+  <Project Path="GimnasioFit.Core/GimnasioFit.Core.csproj" />
+  <Project Path="GimnasioFit.Infrastructure/GimnasioFit.Infrastructure.csproj" />
+  <Project Path="GimnasioFit.Tests/GimnasioFit.Tests.csproj" />
+</Solution>
